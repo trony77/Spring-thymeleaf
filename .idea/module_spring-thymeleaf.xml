@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_spring-thymeleaf" default="compile.module.spring-thymeleaf">
+  <dirname property="module.spring-thymeleaf.basedir" file="${ant.file.module_spring-thymeleaf}"/>
+  
+  <property name="module.jdk.home.spring-thymeleaf" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.spring-thymeleaf" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.spring-thymeleaf" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.spring-thymeleaf" value="-encoding UTF-8 -source 13 -target 13 ${compiler.args}"/>
+  
+  <property name="spring-thymeleaf.output.dir" value="undefined"/>
+  <property name="spring-thymeleaf.testoutput.dir" value="undefined"/>
+  
+  <path id="spring-thymeleaf.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="spring-thymeleaf.module.production.classpath">
+    <path refid="${module.jdk.classpath.spring-thymeleaf}"/>
+  </path>
+  
+  <path id="spring-thymeleaf.runtime.production.module.classpath"/>
+  
+  <path id="spring-thymeleaf.module.classpath">
+    <path refid="${module.jdk.classpath.spring-thymeleaf}"/>
+  </path>
+  
+  <path id="spring-thymeleaf.runtime.module.classpath"/>
+  
+  
+  <patternset id="excluded.from.module.spring-thymeleaf">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.spring-thymeleaf">
+    <patternset refid="excluded.from.module.spring-thymeleaf"/>
+  </patternset>
+  
+  
+  <target name="compile.module.spring-thymeleaf" depends="compile.module.spring-thymeleaf.production,compile.module.spring-thymeleaf.tests" description="Compile module Spring-thymeleaf"/>
+  
+  <target name="compile.module.spring-thymeleaf.production" depends="register.custom.compilers" description="Compile module Spring-thymeleaf; production classes"/>
+  
+  <target name="compile.module.spring-thymeleaf.tests" depends="register.custom.compilers,compile.module.spring-thymeleaf.production" description="compile module Spring-thymeleaf; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.spring-thymeleaf" description="cleanup module">
+    <delete dir="${spring-thymeleaf.output.dir}"/>
+    <delete dir="${spring-thymeleaf.testoutput.dir}"/>
+  </target>
+</project>

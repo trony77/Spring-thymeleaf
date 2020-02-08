@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:form=""
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Creation d'un produit</h1>
+<form: th:action="@{/addProduct}"
+       th:object="${productForm}" method="${POST}">
+    Libellé:<input type="text" th:field="*${name}">
+    Description:<input type="text" th:field="*${description}">
+    Prix:<input type="text" th:field="*${price}">
+    Libellé:<input type="submit" value="Créer">
+</form:>
+<br/>
+<br/>
+<div th:if="${errorMessage}" th:utext="${errorMessage}" style="color:red;font-style:italic;">...</div>
+
+</body>
+</html>
