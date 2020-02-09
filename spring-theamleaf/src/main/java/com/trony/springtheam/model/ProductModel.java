@@ -1,6 +1,6 @@
 package com.trony.springtheam.model;
 
-public class Product {
+public class ProductModel {
     private String name;
     private String description;
     private Double price;
@@ -14,10 +14,10 @@ public class Product {
         this.EAN = EAN;
     }
 
-    public Product() {
+    public ProductModel() {
     }
 
-    public Product(String name, String description, double price) {
+    public ProductModel(String name, String description, double price) {
         this.name = name;
         this.description = description;
         this.price = price;

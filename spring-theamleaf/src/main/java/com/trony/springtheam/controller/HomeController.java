@@ -1,7 +1,7 @@
 package com.trony.springtheam.controller;
 
 import com.trony.springtheam.form.ProductForm;
-import com.trony.springtheam.model.Product;
+import com.trony.springtheam.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +14,12 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-    private static List<Product> products = new ArrayList<>();
+    private static List<ProductModel> products = new ArrayList<>();
 
     static {
-        products.add(new Product("Formation", "Formation prêt à l'emploie", 1899.99));
-        products.add(new Product("Accompagnement", "Aide et assistance ", 887.55));
-        products.add(new Product("Prestation", "Une mission à réalisée ", 1456.99));
+        products.add(new ProductModel("Formation", "Formation prêt à l'emploie", 1899.99));
+        products.add(new ProductModel("Accompagnement", "Aide et assistance ", 887.55));
+        products.add(new ProductModel("Prestation", "Une mission à réalisée ", 1456.99));
     }
 
     //Injectez via application.properties
@@ -29,9 +29,40 @@ public class HomeController {
     @Value("${error.message}")
     private String errorMessage;
 
+    @Value("${legend.site}")
+    private String legend;
+
+    @Value("${category.type.professionnal}")
+    private String professionnal;
+
+    @Value("${category.type.particulary}")
+    private String particulary;
+
+    @Value("${category.type.publicadministration}")
+    private String publicadministration;
+
+     @Value("${sign.up}")
+    private String signUp;
+
+    @Value("${logo.site}")
+    private String logo;
+
+    @Value("${title.site}")
+    private String title;
+
+    @Value("${sign.up}")
+    private String signup;
+
     @RequestMapping(value = {"/", "/home", "/index"}, method = RequestMethod.GET)
     public String home(Model model) {
         model.addAttribute("products", products);
+        model.addAttribute("legend", legend);
+        model.addAttribute("title", title);
+        model.addAttribute("logo", logo);
+        model.addAttribute("signup", signup);
+        model.addAttribute("professionnal", professionnal);
+        model.addAttribute("particulary", particulary);
+        model.addAttribute("publicadministration", publicadministration);
         return "index";
     }
 
@@ -42,7 +73,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = {"/product"}, method = RequestMethod.GET)
-    public ModelAndView productPage(final Model model, final Product product) {
+    public ModelAndView productPage(final Model model, final ProductModel product) {
         model.addAttribute("message", message);
         return new ModelAndView("product", "product", product.toString());
     }
