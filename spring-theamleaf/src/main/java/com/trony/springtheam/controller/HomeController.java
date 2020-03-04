@@ -1,7 +1,8 @@
 package com.trony.springtheam.controller;
 
-import com.trony.springtheam.form.ProductForm;
-import com.trony.springtheam.model.*;
+import com.trony.springtheam.model.Product;
+import com.trony.springtheam.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,13 +14,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+
+@RequestMapping(value = {"/onoy"}, method = RequestMethod.GET)
+
 public class HomeController {
-    private static List<ProductModel> products = new ArrayList<>();
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @Autowired
+    private ProductService productService;
+    private static List<Product> products = new ArrayList<>();
 
     static {
-        products.add(new ProductModel("Formation", "Formation prêt à l'emploie", 1899.99));
-        products.add(new ProductModel("Accompagnement", "Aide et assistance ", 887.55));
-        products.add(new ProductModel("Prestation", "Une mission à réalisée ", 1456.99));
+        products.add(new Product("REF001", "Formation", "Formation prêt à l'emploie", 1899.99));
+        products.add(new Product("REF001", "Accompagnement", "Aide et assistance ", 887.55));
+        products.add(new Product("REF001", "Prestation", "Une mission à réalisée ", 1456.99));
     }
 
     //Injectez via application.properties
@@ -40,9 +50,6 @@ public class HomeController {
 
     @Value("${category.type.publicadministration}")
     private String publicadministration;
-
-     @Value("${sign.up}")
-    private String signUp;
 
     @Value("${logo.site}")
     private String logo;
@@ -68,24 +75,24 @@ public class HomeController {
 
     @RequestMapping(value = {"/productList"}, method = RequestMethod.GET)
     public String productList(Model model) {
+        List<Product> productList = productService.getAllProducts();
+        model.addAttribute("productList", productList);
         model.addAttribute("message", message);
         return "productList";
     }
 
     @RequestMapping(value = {"/product"}, method = RequestMethod.GET)
-    public ModelAndView productPage(final Model model, final ProductModel product) {
+    public ModelAndView productPage(final Model model, final Product product) {
+
         model.addAttribute("message", message);
-        return new ModelAndView("product", "product", product.toString());
+        return new ModelAndView("product", "product", product.getId());
     }
 
     @RequestMapping(value = {"/addProduct"}, method = RequestMethod.GET)
-    public String addProduct(Model model) {
-        ProductForm productForm = new ProductForm();
-        model.addAttribute("productForm", productForm);
-        final String name = productForm.getName();
-        final String description = productForm.getDescription();
-        final Double price = productForm.getPrice();
-        return "productList";
+    public String addProduct(final Model model, final Product product) {
+        Product addProduct = (Product) productService.addProduct(product);
+        model.addAttribute("addProduct", addProduct);
+        return "addProduct";
 
     }
 }

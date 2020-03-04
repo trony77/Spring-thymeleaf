@@ -9,10 +9,11 @@
 <body>
 <h1>Creation d'un produit</h1>
 <form: th:action="@{/addProduct}"
-       th:object="${productForm}" method="${POST}">
-    Libellé:<input type="text" th:field="*${name}">
-    Description:<input type="text" th:field="*${description}">
-    Prix:<input type="text" th:field="*${price}">
+       th:object="${addProduct}" method="${POST}">
+    Libellé:<input type="text" th:field="*${addProduct.name}">
+    Libellé:<input type="text" th:field="*${addProduct.name}">
+    Description:<input type="text" th:field="*${addProduct.description}">
+    Prix:<input type="text" th:field="*${addProduct.price}">
     Libellé:<input type="submit" value="Créer">
 </form:>
 <br/>

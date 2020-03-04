@@ -14,13 +14,19 @@
         <table border="1">
             <tr>
                 <th>Libellé</th>
+                <th>EAN</th>
                 <th>Description</th>
                 <th>Prix</th>
             </tr>
-            <tr th:each ="product : ${products}">
-                <td th:utext="${product.name}">...</td>
-                <td th:utext="${product.description}">...</td>
-                <td th:utext="${product.price}">...</td>
+            <tr th:each="product : ${productList}">
+                <td th:utext="${product.EAN}">EAN</td>
+                <td th:utext="${product.name}">libellé</td>
+                <td th:utext="${product.description}">description</td>
+                <td th:utext="${product.price}">Prix</td>
+                <td>
+                    <a th:href="/@{'/edit/' + ${product.EAN}}">Editer</a>
+                    <a th:href="/@{'/delete' + ${product.EAN}}">Supprimer</a>
+                </td>
             </tr>
         </table>
     </div>

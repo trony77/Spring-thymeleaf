@@ -1,27 +1,27 @@
 package com.trony.springtheam.model;
 
-public class ProductModel {
+public class Product {
+    private String id;
     private String name;
     private String description;
     private Double price;
-    private String EAN;
 
-    public String getEAN() {
-        return EAN;
+    public String getId() {
+        return id;
     }
 
-    public void setEAN(String EAN) {
-        this.EAN = EAN;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public ProductModel() {
+    public Product() {
     }
 
-    public ProductModel(String name, String description, double price) {
+    public Product(String ref001, String name, String description, Double price) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.EAN = EAN;
     }
 
     public String getName() {
